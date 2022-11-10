@@ -5,5 +5,13 @@
     "version": "1.0",
     "action": {
       "default_popup": "./popup/hello.html"
-    }
+    },
+    "content_scripts": [
+      {
+        "js": ["scripts/scrape.js"],
+        "matches": [
+          "https://classroom.cgps.org/assignment/*/info/*"
+        ]
+      }
+    ]
   }
