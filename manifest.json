@@ -7,15 +7,7 @@
       "default_title": "Click to scrape"
     },
     "background": {
-      "service_worker": "./scripts/scrape.js"
+      "service_worker": "scripts/background.js"
     },
-    "permissions": ["activeTab"],
-    "content_scripts": [
-      {
-        "js": ["scripts/scrape.js"],
-        "matches": [
-          "https://classroom.cgps.org/assignment/*/info/*"
-        ]
-      }
-    ]
+    "permissions": ["activeTab", "scripting"]
   }
