@@ -2,10 +2,7 @@
 
 console.log("Scraper file loaded")
 
- 
-console.log("Scraping rubric...")
-const schoologyAssignmentPage = "https://classroom.cgps.org/assignment"
-
+//get HTML elements
 const rubricRowNameList = document.querySelectorAll(`tr.rubric-row.ng-scope th.rubric-row-title`)
 const rubricRowScoreList = document.querySelectorAll(`.right-column > .rubric-table > :nth-child(2) td.rating-wrapper.ng-scope.selected div.rating-item`)
 const totalScore = document.querySelector(`div.s-slider.s-js-manage-focus.rubric-grades-edit.ng-scope.opened .assigned-grades-total span`).innerHTML
@@ -13,23 +10,38 @@ console.log(rubricRowNameList[0])
 console.log(rubricRowScoreList[0])
 console.log(totalScore)
 
-if (rubricRowNameList.length == rubricRowScoreList.length) {
-    for (let i = 0; i < rubricRowNameList.length; i++) {
+//get the inner HTML of each element. we just want the plaintext. totalScore already plaintext
+const rubricRowNameListAsPlaintext = [],  rubricRowScoreListAsPlaintext = []
 
+
+
+function saveRubricItemObjects() {
+    if (rubricRowNameList.length == rubricRowScoreList.length) {
+        for (let i = 0; i < rubricRowNameList.length; i++) {
+            //chrome.storage.local.set({[`row${i}`]:) //add object formed above here 
+        }
+    }
+    else {
+        throw "name and score lists are of different lengths"
     }
 }
-else {
-    throw "name and score lists are of different lengths"
-}
-    
-chrome.storage.local.get(null, function(items) { // null implies all items
-    // Convert object to a string.
-    var result = JSON.stringify(items);
 
-    // Save as file
-    var url = 'data:application/json;base64,' + btoa(result);
-    chrome.downloads.download({
-        url: url,
-        filename: 'filename_of_exported_file.json'
+function downloadData() {
+    //Pulled from stackexchange post, basically downloads data as a way to save it locally
+    chrome.storage.local.get(null, function(items) { // null implies all items
+        // Convert object to a string.
+        var result = JSON.stringify(items);
+
+        // Save as file
+        var url = 'data:application/json;base64,' + btoa(result);
+        chrome.downloads.download({
+            url: url,
+            filename: 'filename_of_exported_file.json' //update to student name
+        }, (downloadID) => { //callback when download started not finished
+            if (downloadID) { //if error starting download, downloadID is undefined
+                chrome.storage.local.clear(); //empties for next rubric to be downloaded
+            }
+        });
     });
-});
+}
+

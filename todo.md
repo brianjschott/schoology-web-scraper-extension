@@ -1,6 +1,8 @@
 # resources/helpful links for this project
 https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/
 
+https://developer.chrome.com/docs/extensions/mv3/xhr/ - cross origin
+
 # query selectors for each table row w/ rubric
 
 I used SimpleScraper to identify the selectors that would target the individual rubric rows.
