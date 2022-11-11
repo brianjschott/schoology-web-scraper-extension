@@ -13,8 +13,23 @@ console.log(totalScore)
 //get the inner HTML of each element. we just want the plaintext. totalScore already plaintext
 const rubricRowNameListAsPlaintext = [],  rubricRowScoreListAsPlaintext = []
 
+for (item of rubricRowNameList) {
+    //get rubric-row-title element and description, adds to list
+    const rubricTitle = item.querySelector(".rubric-row-title .input-top").innerHTML
+    const rubricSkillDescription = item.querySelector(".rubric-row-title .input-bottom").innerHTML
+    rubricRowNameListAsPlaintext.push(`${rubricTitle}: ${rubricSkillDescription}`)
+}
 
+for (item of rubricRowScoreList) {
+    const rubricScoreValue = item.querySelector(".rating-item .input-top").innerHTML
+    const rubricScoreDescription = item.querySelector(".rating-item .input-bottom").innerHTML
+    rubricRowScoreListAsPlaintext.push(`${rubricScoreValue} - ${rubricScoreDescription}`)
+}
 
+console.log(rubricRowNameListAsPlaintext)
+console.log(rubricRowScoreListAsPlaintext)
+
+//not sure I need this, can probably form the objects up above. Change later
 function saveRubricItemObjects() {
     if (rubricRowNameList.length == rubricRowScoreList.length) {
         for (let i = 0; i < rubricRowNameList.length; i++) {
