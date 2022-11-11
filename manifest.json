@@ -4,8 +4,12 @@
     "description": "Scrapes a given assignment's rubric scores",
     "version": "1.0",
     "action": {
-      "default_popup": "./popup/hello.html"
+      "default_title": "Click to scrape"
     },
+    "background": {
+      "service_worker": "./scripts/scrape.js"
+    },
+    "permissions": ["activeTab"],
     "content_scripts": [
       {
         "js": ["scripts/scrape.js"],
