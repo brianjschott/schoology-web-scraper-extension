@@ -1,15 +1,12 @@
-console.log("Scraper file loaded")
-
-
 //get HTML elements
 const rubricRowNameList = document.querySelectorAll(`tr.rubric-row.ng-scope th.rubric-row-title`)
 const rubricRowScoreList = document.querySelectorAll(`.right-column > .rubric-table > :nth-child(2) td.rating-wrapper.ng-scope.selected div.rating-item`)
 const totalScore = document.querySelector(`div.s-slider.s-js-manage-focus.rubric-grades-edit.ng-scope.opened .assigned-grades-total span`).innerHTML
 const studentName = document.querySelector(`.enrollment-dd-name`).textContent
 const assignmentNumber = window.location.pathname.substring(window.location.pathname.indexOf("assignment/")+11,window.location.pathname.lastIndexOf('/'));
-console.log(studentName)
+
 let rubric = []
-//for (item of rubricRowNameList) 
+
 for (let i = 0; i < rubricRowNameList.length; i++)
 {
     //get rubric-row-title element and description, adds to list
@@ -24,14 +21,9 @@ for (let i = 0; i < rubricRowNameList.length; i++)
         rubricScoreValue: rubricScoreValue,
         rubricScoreDescription: rubricScoreDescription
     })
-
 }
 
 chrome.storage.local.set({rubric: rubric}, function() {
     console.log("Saving to local storage")
     chrome.runtime.sendMessage({rubricSaved: true, studentName: studentName, assignmentNumber: assignmentNumber})
 }) //add object formed above here 
-
-
-
-
