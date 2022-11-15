@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
       var result = convertJSONtoCSV(items.rubric)
       
       // Save as file
-      var url = 'data:text/csv;;charset=utf-8,%EF%BB%BF,' + encodeURIComponent(result);
+      var url = 'data:text/csv;charset=utf-8,' + encodeURIComponent(result);
       chrome.downloads.download({
           url: url,
           filename: `rubrics/${msg.studentName}-${msg.assignmentName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")}.csv`
