@@ -6,7 +6,6 @@ chrome.action.onClicked.addListener((tab) => {
   });
 });
 
-//borrowed from https://stackoverflow.com/questions/8847766/how-to-convert-json-to-csv-format-and-store-in-a-variable
 chrome.runtime.onMessage.addListener((msg, sender) => {
   if (msg.rubricSaved) {
     //Pulled from stackexchange post, basically downloads data as a way to save it locally
@@ -27,6 +26,7 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
   });
   }
 
+  //borrowed from https://stackoverflow.com/questions/8847766/how-to-convert-json-to-csv-format-and-store-in-a-variable
   function convertJSONtoCSV(arrayOfJson) {
     const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
     const header = Object.keys(arrayOfJson[0])

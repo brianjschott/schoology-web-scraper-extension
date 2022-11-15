@@ -7,6 +7,12 @@ var assignmentNumber = window.location.pathname.substring(window.location.pathna
 var assignmentName = document.querySelector(`#center-top .page-title`).textContent
 var rubric = []
 
+//get HTML table. For each row that doesn't include the header row, 
+//get the title and description (borrow from the original queries),
+//and check to see if a selected cell in that row exists
+//if so, use that description and score
+//if not, make the description a default and set score to whatever is in the input box
+
 for (let i = 0; i < rubricRowNameList.length; i++)
 {
     //get rubric-row-title element and description, adds to list

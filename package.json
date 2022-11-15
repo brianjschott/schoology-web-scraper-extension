@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "chrome-types": "^0.1.146",
-    "json2csv": "^5.0.7"
+    "chrome-types": "^0.1.146"
   }
 }
