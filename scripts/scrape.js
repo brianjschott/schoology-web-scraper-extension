@@ -4,7 +4,7 @@ var rubricRowScoreList = document.querySelectorAll(`.right-column > .rubric-tabl
 var totalScore = document.querySelector(`div.s-slider.s-js-manage-focus.rubric-grades-edit.ng-scope.opened .assigned-grades-total span`).innerHTML
 var studentName = document.querySelector(`.enrollment-dd-name`).textContent
 var assignmentNumber = window.location.pathname.substring(window.location.pathname.indexOf("assignment/")+11,window.location.pathname.lastIndexOf('/'));
-
+var assignmentName = document.querySelector(`#center-top .page-title`).textContent
 var rubric = []
 
 for (let i = 0; i < rubricRowNameList.length; i++)
@@ -25,5 +25,5 @@ for (let i = 0; i < rubricRowNameList.length; i++)
 
 chrome.storage.local.set({rubric: rubric}, function() {
     console.log("Saving to local storage")
-    chrome.runtime.sendMessage({rubricSaved: true, studentName: studentName, assignmentNumber: assignmentNumber})
+    chrome.runtime.sendMessage({rubricSaved: true, studentName: studentName, assignmentNumber: assignmentNumber, assignmentName: assignmentName})
 }) 

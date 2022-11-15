@@ -20,12 +20,11 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
       // Convert object to a string.
       var result = json2csv.parse(result);
       
-      
       // Save as file
       var url = 'data:text/csv;base64,' + btoa(result);
       chrome.downloads.download({
           url: url,
-          filename: `${msg.studentName}-${msg.assignmentNumber}` //update to student name
+          filename: `rubrics/${msg.studentName}-${msg.assignmentNumber}.csv`
       }, (downloadID) => { //callback when download started not finished
           if (downloadID) { //if error starting download, downloadID is undefined
               chrome.storage.local.clear(); //empties for next rubric to be downloaded
