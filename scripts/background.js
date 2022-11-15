@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
       var url = 'data:text/csv;base64,' + btoa(result);
       chrome.downloads.download({
           url: url,
-          filename: `rubrics/${msg.studentName}-${msg.assignmentNumber}.csv`
+          filename: `rubrics/${msg.studentName}-${msg.assignmentName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")}.csv`
       }, (downloadID) => { //callback when download started not finished
           if (downloadID) { //if error starting download, downloadID is undefined
               chrome.storage.local.clear(); //empties for next rubric to be downloaded
