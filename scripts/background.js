@@ -1,5 +1,3 @@
-const json2csv = require('json2csv')
-
 chrome.action.onClicked.addListener((tab) => {
   console.log("On click event fired")
   chrome.scripting.executeScript({
@@ -8,20 +6,16 @@ chrome.action.onClicked.addListener((tab) => {
   });
 });
 
-// chrome.downloads.onCreated.addListener((item) => {
-  
-// })
-
-
+//borrowed from https://stackoverflow.com/questions/8847766/how-to-convert-json-to-csv-format-and-store-in-a-variable
 chrome.runtime.onMessage.addListener((msg, sender) => {
   if (msg.rubricSaved) {
     //Pulled from stackexchange post, basically downloads data as a way to save it locally
     chrome.storage.local.get(null, function(items) { // null implies all items
-      // Convert object to a string.
-      var result = json2csv.parse(result);
+      console.log(items)
+      var result = convertJSONtoCSV(items.rubric)
       
       // Save as file
-      var url = 'data:text/csv;base64,' + btoa(result);
+      var url = 'data:text/csv;;charset=utf-8,%EF%BB%BF,' + encodeURIComponent(result);
       chrome.downloads.download({
           url: url,
           filename: `rubrics/${msg.studentName}-${msg.assignmentName.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")}.csv`
@@ -31,5 +25,15 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
           }
       });
   });
+  }
+
+  function convertJSONtoCSV(arrayOfJson) {
+    const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+    const header = Object.keys(arrayOfJson[0])
+    let csv = arrayOfJson.map(row => header.map(fieldName => 
+    JSON.stringify(row[fieldName], replacer)).join(','))
+    csv.unshift(header.join(','))
+    csv = csv.join('\r\n')
+    return csv
   }
 });
