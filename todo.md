@@ -11,3 +11,8 @@ rubricRowName: tr.rubric-row.ng-scope th.rubric-row-title
 rubricRowScore: .right-column > .rubric-table > :nth-child(2) td.rating-wrapper.ng-scope.selected div.rating-item
 Total: div.s-slider.s-js-manage-focus.rubric-grades-edit.ng-scope.opened div.bottom
 ````
+
+# Bugs
+Rubrics without a selected column do not scrape properly. Instead, should...
+- Get all table rows
+- Iterate thru each, building the object as we go
